@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-
 class Products {
   final int id;
   final String title;
@@ -66,16 +64,14 @@ class Products {
 
   // static fromMap(jsonDecode) {}
 
-
-    Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap() {
     return {
       'title': title,
       'description': description,
       'image': image,
       'price': price,
       'id': id,
-      // 'quantity': quantity, // Thêm thuộc tính quantity vào Map
-      // 'totalPrice': quantity * price,
+
     };
   }
 
@@ -86,15 +82,11 @@ class Products {
       image: map['image'] ?? '',
       price: map['price'] ?? 0.0,
       id: map['id'] ?? '',
-      // quantity: map['quantity'] ?? 1, // Thêm thuộc tính quantity vào factory method
-      // totalPrice: map['totalPrice'] ?? 0, // Thêm giá trị của totalPrice
-
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Products.fromJson(String source) => Products.fromMap(json.decode(source));
+  factory Products.fromJson(String source) =>
+      Products.fromMap(json.decode(source));
 }
-
-

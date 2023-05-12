@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/services/checkout_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../models/carts.dart';
-import '../../models/products.dart';
 
 class CheckOutCart extends StatefulWidget {
   // final double sum;
@@ -36,16 +35,16 @@ class _CheckOutCartState extends State<CheckOutCart> {
 
   void fillFormUser() async {
     List<Map<String, dynamic>> cart = await Cart.loadCart();
-    // List<Map<String, dynamic>> updatedCart = cart.map((product) {
-    //   return {
-    //     'productId': product["_id"],
-    //     'title': product['title'],
-    //     'price': product['price'],
-    //   };
-    // }).toList();
+    List<Map<String, dynamic>> updatedCart = cart.map((product) {
+      return {
+        'productId': product["id"],
+        'title': product['title'],
+        'price': product['price'],
+      };
+    }).toList();
     fillFormService.fillForm(
       context: context,
-      products: cart,
+      products: updatedCart,
       // total: widget.sum,
     );
     deleteCart();
@@ -93,12 +92,8 @@ class _CheckOutCartState extends State<CheckOutCart> {
             foregroundColor: MaterialStateProperty.all<Color>(Colors.green),
           ),
           onPressed: () async {
-            // SharedPreferences prefs = await SharedPreferences.getInstance();
-            // prefs.setString("TestString_key", "my value");
-            if (_checkOutFormKey.currentState!.validate()) {
-              fillFormUser();
-            }
-            Navigator.pushNamed(context, "/home");
+            fillFormUser();
+
           },
           child: Text(
             "Check out".toUpperCase(),

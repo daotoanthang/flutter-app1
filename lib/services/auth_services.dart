@@ -55,7 +55,7 @@ class AuthServices {
   }) async {
     try {
       http.Response res =
-          await http.post(Uri.parse("http://192.168.0.100:2000/api/auth/login"),
+          await http.post(Uri.parse("http://192.168.1.12:5000/api/auth/login"),
               body: jsonEncode({
                 'email': email,
                 'password': password,

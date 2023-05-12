@@ -7,7 +7,7 @@ class FavoriteDetail extends StatelessWidget {
   FavoriteDetail(this.products);
   @override
   Widget build(BuildContext context) {
-    print(products.length.toString());
+    // print(products.length.toString());
     return Expanded(
       child: Container(
         child: ListView.builder(

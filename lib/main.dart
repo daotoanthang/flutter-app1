@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/cart/cartpage.dart';
 import 'package:flutter_app/detail/productpage.dart';
+import 'package:flutter_app/provider/user_provider.dart';
 import 'package:flutter_app/splashpage.dart';
 import 'package:flutter_app/signin/signinpage.dart';
 import 'package:flutter_app/signup/signuppage.dart';
 import 'package:flutter_app/homepage/homepage.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(
+      create: (context) => UserProvider(),
+    ),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -28,7 +34,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
       routes: {
         '/splash': (context) => SplashPage(),

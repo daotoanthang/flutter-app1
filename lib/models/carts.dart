@@ -6,19 +6,24 @@ import 'products.dart';
 
 class Cart {
   static List<Products> cart = [];
-  
-  void addProductToCart(Products product) {
+
+  static void addProductToCart(Products product) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     cart.add(product);
-    print(product);
+
+    List<String> cartJsonList =
+        cart.map((p) => json.encode(p.toMap())).toList();
+    await prefs.setStringList('cart', cartJsonList);
+
+    print(cartJsonList);
   }
 
   List<Products> getCart() {
     print(cart);
-
     return cart;
   }
 
-   static Future<void> updateCart() async {
+  static Future<void> updateCart() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> cartJsonList =
         cart.map((p) => json.encode(p.toMap())).toList();
@@ -26,7 +31,7 @@ class Cart {
     print(cartJsonList);
   }
 
-   static Future<List<Map<String, dynamic>>> loadCart() async {
+  static Future<List<Map<String, dynamic>>> loadCart() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? cartJson = prefs.getStringList('cart');
     print(cartJson);
@@ -40,8 +45,4 @@ class Cart {
       return []; // Return a default value for cart
     }
   }
-  
-
-  
-
 }

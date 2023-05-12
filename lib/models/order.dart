@@ -2,7 +2,6 @@ import 'dart:convert';
 
 class Order {
   final String id;
-  final String userId;
   List<Map<String, dynamic>> products;
 
   // final num subtotal; //phí ship
@@ -10,7 +9,7 @@ class Order {
 
   Order({
     required this.id,
-    required this.userId,
+    // required this.userId,
     required this.products,
     // required this.subtotal,
     // required this.total,
@@ -18,9 +17,10 @@ class Order {
 
   Map<String, dynamic> toMap() => {
         'id': id,
-        'userId': userId,
+        // 'userId': userId,
         'products': products
             .map((x) => {
+                  'productId': x['id'],
                   'title': x['title'] ?? "",
                   'price': x['price'] ?? 0.0,
                 })
@@ -32,7 +32,7 @@ class Order {
   factory Order.fromMap(Map<String, dynamic> map) {
     return Order(
       id: map['_id'] ?? "chưa có id",
-      userId: map['userId'] ?? "",
+      // userId: map['userId'] ?? "",
       products: List<Map<String, dynamic>>.from(map['products']?.map((x) => {
             'productId': x['id'],
             'title': x['title'],

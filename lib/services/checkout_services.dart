@@ -15,16 +15,17 @@ class FillFormService {
     required List<Map<String, dynamic>> products,
     // required num total,
   }) async {
-    final userId = Provider.of<UserProvider>(context, listen: false).user.id;
+    // final userId = Provider.of<UserProvider>(context, listen: false).user.id;
+    // print(userId);
     try {
       Order order = Order(
         id: "",
-        userId: userId,
+        // userId: userId,
         products: products,
         // total: total,
       );
       http.Response res = await http.post(
-        Uri.parse('http://192.168.0.100:2000/api/order'),
+        Uri.parse('http://192.168.1.12:5000/api/order'),
         body: order.toJson(),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -39,12 +40,11 @@ class FillFormService {
         context: context,
         onSuccess: () async {
           Navigator.pushNamed(context, "/home");
-          String orderId = json.decode(res.body)['_id'];
-          print(res.body);
+
         },
       );
     } catch (e) {
-      print(e);
+      // print(e);
       showSnackBar(context, e.toString());
     }
   }
